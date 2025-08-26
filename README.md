@@ -1,129 +1,124 @@
 # 🗄️ AI Database Studio
 
-> A powerful, AI-driven desktop application for database management and query assistance
+> A private, intelligent desktop app for managing PostgreSQL, MySQL, SQLite, and MongoDB — with AI assistance built around *your* data.
 
 [![Electron](https://img.shields.io/badge/Electron-35.1.5-47848F?style=flat-square&logo=electron)](https://electronjs.org/)
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/anmoldobariya/ai-db-studio?style=flat-square)](https://github.com/anmoldobariya/ai-db-studio/stargazers)
+[![Forks](https://img.shields.io/github/forks/anmoldobariya/ai-db-studio?style=flat-square)](https://github.com/anmoldobariya/ai-db-studio/network)
 
 **AI Database Studio** is a modern, cross-platform desktop application that simplifies database management through an intuitive interface powered by artificial intelligence. Built with Electron, React, and TypeScript, it provides developers and database administrators with powerful tools for connecting to, querying, and managing multiple database systems.
 
-![Application Screenshot](docs/images/screenshot.png)
+![AI Database Studio Screenshot](docs/images/screenshot.png)
 
-## ✨ Features
+> 🔐 **No login. No cloud. No data leaves your machine.**
+
+---
+
+## 🌟 Why This Exists
+
+Most AI-powered database tools:
+- Send your queries to third-party servers
+- Use generic models trained on public data
+- Lack understanding of your specific schema or workflows
+
+**AI Database Studio** is different:
+
+✅ Built for developers who value **privacy and personalization**  
+✅ All data stays local — never uploaded  
+✅ AI will be trained on *your* queries, tables, and patterns  
+✅ Future: a truly personal AI assistant that learns how *you* work
+✅ Cross-platform compatibility (Windows, macOS, Linux)
+
+> 💬 *"I built this because I wanted a database tool that doesn’t just know SQL — it learns how *I* write it."*
+
+---
+
+## ✨ Key Features
+
+### 🔒 **Privacy-First Design**
+- No user accounts, no signups, no backend
+- All databases, queries, and schema stay on your device
+- Zero telemetry, zero tracking
+- Ideal for sensitive projects (enterprise, healthcare, government)
+
+### 🤖 **Personal AI Assistant (Future Goal)**
+- AI will be trained on *your* data over time
+- Understands your schema, naming conventions, and query style
+- Learns from your past queries and preferences
+- Fully runs locally — no internet required
+
+> 🔮 **Coming Soon**: A custom AI model trained by me — based on my own usage patterns — that evolves with me.
 
 ### 🔗 **Multi-Database Support**
+| Database   | Status                               |
+|------------|--------------------------------------|
+| PostgreSQL | ✅ Full support + ERD                |
+| MySQL      | ✅ Complete SQL operations           |
+| SQLite     | ✅ Local file-based management       |
+| MongoDB    | ✅ Document operations & aggregation |
 
-- **PostgreSQL** - Full support with schema visualization
-- **MongoDB** - Document database operations
-- **MySQL** - Complete SQL operations
-- **SQLite** - Local database management
+### 📝 **Smart Query Editor**
+- Monaco Editor with syntax highlighting
+- Auto-completion for tables, columns, keywords
+- Real-time validation & error detection
+- Multi-tab queries + execution history
 
-### 🤖 **AI-Powered Assistance**
+### 📊 **Data Visualization & Schema Tools**
+- Interactive data tables (sort/filter/export)
+- Auto-generated Entity Relationship Diagrams (ERD)
+- Export to CSV, JSON, Excel
+- Visual schema exploration
 
-- Intelligent query suggestions and optimization
-- Natural language to SQL conversion
-- Automated query explanation and documentation
-- Performance analysis and recommendations
-
-### 📝 **Advanced Query Editor**
-
-- Syntax highlighting with Monaco Editor
-- Auto-completion for tables, columns, and SQL keywords
-- Real-time error detection and validation
-- Multi-tab query management
-- Query execution history and bookmarks
-
-### 📊 **Data Visualization & Management**
-
-- Interactive data tables with sorting and filtering
-- Entity Relationship Diagram (ERD) generation
-- Export data in multiple formats (CSV, JSON, Excel)
-- Schema visualization and exploration
-
-### 🔒 **Security & Privacy**
-
-- Encrypted credential storage
-- Secure connection management
-- Local data processing (no cloud dependencies)
-- Connection-specific state isolation
-
-### 🎨 **Modern User Experience**
-
-- Dark/Light theme support
-- Responsive and intuitive interface
-- Cross-platform compatibility (Windows, macOS, Linux)
-- Customizable workspace layouts
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Node.js** (v22 or higher)
-- **pnpm** (recommended package manager)
-- A supported database server
+- Node.js v22+
+- pnpm (recommended)
+- A supported database server (or SQLite file)
 
 ### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/anmoldobariya/ai-db-studio.git
-   cd ai-db-studio
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   pnpm install
-   ```
-
-3. **Start development server**
-   ```bash
-   pnpm dev
-   ```
-
-### Building for Production
-
 ```bash
-# Build for your current platform
-pnpm build
-
-# Platform-specific builds
-pnpm build:win    # Windows
-pnpm build:mac    # macOS
-pnpm build:linux  # Linux
+git clone https://github.com/anmoldobariya/ai-db-studio.git
+cd ai-db-studio
+pnpm install
+pnpm dev
 ```
+
+### Build for Production
+```bash
+pnpm build          # Build for current platform
+pnpm build:win      # Windows
+pnpm build:mac      # macOS
+pnpm build:linux    # Linux
+```
+
+---
 
 ## 🎯 Usage
 
-### Creating Your First Connection
+### 1. Create a Connection
+- Click **"Add New Connection"**
+- Choose type: PostgreSQL, MySQL, SQLite, or MongoDB
+- Enter credentials (or file path for SQLite)
+- Test connection → Save
 
-1. **Launch the application** and click "Add New Connection"
-2. **Select your database type** (PostgreSQL, MongoDB, MySQL, or SQLite)
-3. **Enter connection details**:
-   - Host, port, username, and password for remote databases
-   - File path for SQLite databases
-4. **Test the connection** to ensure it works
-5. **Save and connect** to start exploring your database
+### 2. Write & Run Queries
+- Select a table → auto-generates `SELECT *`
+- Edit in AI-enhanced editor
+- Press `Ctrl+Enter` to run
+- View results in interactive table
 
-### Writing and Executing Queries
+### 3. Use AI Assistant
+- Click **"Show AI Chat"**
+- Type: _“Get all active users from last week”_
+- Get instant SQL suggestion
+- Apply suggestion directly
 
-1. **Select a table** from the sidebar to auto-generate a basic SELECT query
-2. **Edit the query** in the Monaco-powered editor with syntax highlighting
-3. **Execute with Ctrl+Enter** or click the "Run Query" button
-4. **View results** in the interactive data table below
-5. **Export data** using the export button for further analysis
-
-### Using AI Assistance
-
-1. **Open the AI Chat** panel using the "Show AI Chat" button
-2. **Describe what you want** in natural language
-3. **Get AI-generated queries** and explanations
-4. **Apply suggestions** directly to your query editor
 
 ## 🏗️ Architecture
 
@@ -139,18 +134,57 @@ The application follows a multi-process Electron architecture:
 └──────────────────┘    └─────────────────┘    └────────────────────┘
 ```
 
-### Key Components
+> 🔑 **Note**: Currently, AI uses secure hosted APIs. But future versions will run your *own custom model* locally — trained on your data.
 
-- **Main Process**: Handles database connections, file operations, and AI integration
-- **Renderer Process**: React-based UI with TypeScript for type safety
-- **Preload Script**: Secure bridge between main and renderer processes
-- **Database Adapters**: Abstracted database clients for different DB types
-- **AI Service**: Integration with AI models for query assistance
+---
+
+## 🔮 Future: Your Personal AI Model (Planned)
+
+I’m building toward a future where:
+- The AI isn’t generic — it’s **trained on *my* real-world queries and schema**
+- It learns how I structure tables, name columns, and write logic
+- It becomes a **personal assistant** — not just a tool
+
+### What’s Coming?
+- On-device training pipeline (using my own dataset)
+- Lightweight model architecture optimized for local inference
+- Privacy-preserving fine-tuning (no external data transfer)
+- Offline mode: AI works without internet
+
+---
+
+## 🗺️ Roadmap
+
+### Phase 1: Core Stability (Done)
+- Multi-database support
+- Hosted AI assistant (for now)
+- Local-first architecture
+
+### Phase 2: Enhanced User Experience & Performance
+- Advanced query history & bookmarks
+- Smart editor features (auto-completion, formatting)
+- Virtual scrolling for large datasets
+- Export improvements (JSON, XML, Parquet)
+
+### Phase 3: AI Integration & Intelligence
+- Natural language → SQL conversion
+- Query optimization suggestions
+- Schema analysis & documentation
+- Data profiling & anomaly detection
+
+### Phase 4: Personal AI Model (Upcoming)
+- Train a custom model on *your own* query history
+- Fine-tune on schema patterns and naming conventions
+- Deploy locally — no cloud, no API keys
+- Fully private, self-evolving AI assistant
+
+> 🔒 Final Goal: A database tool where **the AI learns from *you*, not the internet**.
+
+---
 
 ## 🛠️ Development
 
-### Recommended IDE Setup
-
+### Recommended Setup
 - **[VSCode](https://code.visualstudio.com/)** with the following extensions:
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
@@ -158,75 +192,50 @@ The application follows a multi-process Electron architecture:
   - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 ### Project Structure
-
 ```
 ai-db-studio/
 ├── src/
-│   ├── main/           # Main process (Node.js)
-│   │   ├── ai/         # AI integration
-│   │   ├── db/         # Database adapters
-│   │   ├── ipc/        # IPC handlers
-│   │   └── store/      # Secure storage
-│   ├── preload/        # Preload scripts
-│   └── renderer/       # Renderer process (React)
-│       ├── components/ # UI components
-│       ├── lib/        # Utilities
-│       └── types/      # Type definitions
-├── docs/              # Documentation
-├── ROADMAP.md         # Development roadmap
-└── README.md          # This file
+│   ├── main/           # Electron main process
+│   ├── preload/        # Secure IPC bridge
+│   └── renderer/       # React + TypeScript UI
+├── docs/               # Docs, screenshots
+├── ROADMAP.md          # Future vision
+└── LICENSE             # MIT License
 ```
 
 ### Available Scripts
-
 ```bash
-# Development
-pnpm dev              # Start development server
-pnpm typecheck        # Run TypeScript checks
+pnpm dev              # Start dev server
+pnpm typecheck        # Check types
 pnpm lint             # Run ESLint
-pnpm format           # Format code with Prettier
-
-# Building
-pnpm build            # Build for production
-pnpm build:unpack     # Build without packaging
-
-# Platform-specific builds
-pnpm build:win        # Build for Windows
-pnpm build:mac        # Build for macOS
-pnpm build:linux      # Build for Linux
+pnpm format           # Format code
+pnpm build            # Build app
+pnpm build:win        # Windows
+pnpm build:mac        # macOS
+pnpm build:linux      # Linux
 ```
 
-## 🗺️ Roadmap
-
-We have an exciting roadmap planned for the future! Check out our [detailed roadmap](ROADMAP.md) for upcoming features:
-
-- **Phase 2**: Enhanced UX & Performance (Advanced history, auto-completion, data visualization)
-- **Phase 3**: AI Integration & Intelligence (Natural language queries, smart optimization)
-- **Phase 4**: Enterprise Features (Collaboration, extended DB support, cloud deployment)
+---
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+I welcome contributions! Whether you're fixing bugs, improving docs, or adding new features:
 
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Make your changes** following our coding standards
-4. **Add tests** for new functionality
-5. **Commit your changes** (`git commit -m 'Add amazing feature'`)
-6. **Push to the branch** (`git push origin feature/amazing-feature`)
-7. **Open a Pull Request**
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/awesome`)
+3. Commit changes (`git commit -m "feat: add X"`)
+4. Push to branch (`git push origin feature/awesome`)
+5. Open a Pull Request
 
-### Development Guidelines
+> ✍️ Follow conventional commits, add tests, and update documentation.
 
-- Follow TypeScript best practices
-- Use conventional commit messages
-- Add tests for new features
-- Update documentation as needed
-- Ensure cross-platform compatibility
+> I'm building something that combines **AI, privacy, and personalization** — and I believe it belongs in the hands of a visionary team.
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
 
 ## 🙋‍♂️ Support
 
@@ -234,7 +243,6 @@ If you encounter any issues or have questions:
 
 - **Bug Reports**: [Open an issue](https://github.com/anmoldobariya/ai-db-studio/issues)
 - **Feature Requests**: [Start a discussion](https://github.com/anmoldobariya/ai-db-studio/discussions)
-- **Documentation**: Check our [docs folder](docs/)
 
 ## 🎉 Acknowledgments
 
@@ -247,5 +255,5 @@ If you encounter any issues or have questions:
 ---
 
 <div align="center">
-  <strong>Built with ❤️ for developers and database administrators</strong>
+  <strong>Built with ❤️ for developers who care about their data — and their own AI</strong>
 </div>
