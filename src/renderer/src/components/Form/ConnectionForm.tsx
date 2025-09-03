@@ -369,7 +369,7 @@ const ConnectionForm = ({ fetchConnections }: ConnectionFormProps) => {
                     />
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                {/* <div className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     id="mysql-ssl"
@@ -379,7 +379,7 @@ const ConnectionForm = ({ fetchConnections }: ConnectionFormProps) => {
                     }
                   />
                   <Label htmlFor="mysql-ssl">Use SSL</Label>
-                </div>
+                </div> */}
               </>
             )}
 

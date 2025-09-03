@@ -18,9 +18,9 @@ export class MySQL {
         password: this.config.password,
         database: this.config.database,
         // ssl: this.config.ssl || false,
-        ssl: {
-          rejectUnauthorized: false
-        },
+        // ssl: {
+        //   rejectUnauthorized: false
+        // },
         connectTimeout: 10000
       });
 
