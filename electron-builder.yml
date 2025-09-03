@@ -40,6 +40,9 @@ mac:
   target:
     - dmg
     - zip
+  arch:
+    - x64
+    - arm64  # or use just: ["universal"]
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
     NSCameraUsageDescription: Application requests access to the device's camera.
@@ -50,7 +53,7 @@ mac:
   gatekeeperAssess: false
 
 dmg:
-  artifactName: ${name}-${version}.${ext}
+  artifactName: ${name}-${version}-mac-${arch}.${ext}
 
 linux:
   target:
