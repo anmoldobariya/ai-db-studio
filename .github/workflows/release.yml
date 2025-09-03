@@ -130,7 +130,7 @@ jobs:
             
             ### macOS
             - **ai-db-studio-${{ github.ref_name }}.dmg** - macOS disk image (recommended)
-            - **ai-db-studio-${{ github.ref_name }}-mac.zip** - macOS zip archive
+            - **ai-db-studio-${{ github.ref_name }}-universal-mac.zip** - macOS zip archive
             
             ### Linux
             - **ai-db-studio-${{ github.ref_name }}.AppImage** - Linux AppImage (recommended)
