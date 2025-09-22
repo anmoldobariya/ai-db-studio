@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { Button } from '@renderer/components/ui/button';
 import { Card, CardContent } from '@renderer/components/ui/card';
+import { cn } from '@renderer/lib/utils.js';
+import { ConnectionType, TableInfo } from '@renderer/types/index.js';
+import { showErrorNotification } from '@renderer/utils/notifications';
 import * as monaco from 'monaco-editor';
 import 'monaco-sql-languages/esm/languages/pgsql/pgsql.contribution';
-import { LanguageIdEnum } from 'monaco-sql-languages';
-import './languageSetup.ts';
-import { ConnectionType } from '@renderer/types/index.js';
-import { Button } from '@renderer/components/ui/button';
-import { cn } from '@renderer/lib/utils.js';
-import { showErrorNotification } from '@renderer/utils/notifications';
+import { useEffect, useRef, useState } from 'react';
+import { getLanguageIdForConnectionType, registerSchemaCompletion, unregisterSchemaCompletion } from './languageSetup';
 
 interface QueryEditorProps {
   initialQuery: string;
@@ -15,9 +14,21 @@ interface QueryEditorProps {
   isLoading: boolean;
   connectionType: ConnectionType;
   forceUpdate?: boolean; // Flag to force editor update even during execution
+  connectionId?: string; // For schema completion
+  tables?: TableInfo[]; // Schema tables for completion
+  activeTable?: TableInfo | null; // Current active table from sidebar
 }
 
-const QueryEditor = ({ initialQuery, onExecute, isLoading, connectionType, forceUpdate = false }: QueryEditorProps) => {
+const QueryEditor = ({
+  initialQuery,
+  onExecute,
+  isLoading,
+  connectionType,
+  forceUpdate = false,
+  connectionId,
+  tables = [],
+  activeTable = null
+}: QueryEditorProps) => {
   const hostRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | undefined>(undefined);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -26,8 +37,10 @@ const QueryEditor = ({ initialQuery, onExecute, isLoading, connectionType, force
 
   useEffect(() => {
     if (hostRef.current && !editorRef.current) {
+      const languageId = getLanguageIdForConnectionType(connectionType);
+
       editorRef.current = monaco.editor.create(hostRef.current, {
-        language: connectionType === 'mongodb' ? 'javascript' : LanguageIdEnum.PG,
+        language: languageId,
         value: initialQuery,
         autoClosingQuotes: 'languageDefined',
         autoClosingBrackets: 'languageDefined',
@@ -69,20 +82,20 @@ const QueryEditor = ({ initialQuery, onExecute, isLoading, connectionType, force
     if (editorRef.current && initialQuery && initialQuery.trim()) {
       const currentValue = editorRef.current.getValue();
       const prevInitialQuery = prevInitialQueryRef.current;
-      
+
       // Update if:
       // 1. initialQuery is different from previous initialQuery AND
       // 2. initialQuery is different from current editor value AND
       // 3. Either forceUpdate is true OR (we're not executing OR the current editor is empty)
-      if (initialQuery !== prevInitialQuery && 
-          currentValue !== initialQuery &&
-          (forceUpdate || !isExecutingRef.current || !currentValue.trim())) {
+      if (initialQuery !== prevInitialQuery &&
+        currentValue !== initialQuery &&
+        (forceUpdate || !isExecutingRef.current || !currentValue.trim())) {
         editorRef.current.setValue(initialQuery);
         prevInitialQueryRef.current = initialQuery;
       }
     }
   }, [initialQuery, forceUpdate]);
-  
+
   // Track when we're executing queries
   useEffect(() => {
     isExecutingRef.current = isLoading;
@@ -90,11 +103,24 @@ const QueryEditor = ({ initialQuery, onExecute, isLoading, connectionType, force
 
   useEffect(() => {
     const model = editorRef.current?.getModel();
-    const newLang = connectionType === 'mongodb' ? 'javascript' : LanguageIdEnum.PG;
+    const newLang = getLanguageIdForConnectionType(connectionType);
     if (model && model.getLanguageId() !== newLang) {
       monaco.editor.setModelLanguage(model, newLang);
     }
   }, [connectionType]);
+
+  // Register schema completion when connectionId and tables are available
+  useEffect(() => {
+    if (connectionId && tables.length > 0) {
+      registerSchemaCompletion(connectionId, connectionType, tables, activeTable);
+    }
+
+    return () => {
+      if (connectionId) {
+        unregisterSchemaCompletion(connectionId);
+      }
+    };
+  }, [connectionId, connectionType, tables, activeTable]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

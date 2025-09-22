@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@renderer/components/ui/button';
-import { TableInfo, EncryptedConnection, ConnectionType } from '@renderer/types/index';
-import Sidebar from '@renderer/components/Sidebar';
-import DataTable from '@renderer/components/DataTable';
 import AiChat from '@renderer/components/AiChat';
-import { HomeIcon, Plus, XIcon, History } from 'lucide-react';
-import { showSuccessNotification, showErrorNotification } from '@renderer/utils/notifications';
+import DataTable from '@renderer/components/DataTable';
+import Sidebar from '@renderer/components/Sidebar';
+import { Button } from '@renderer/components/ui/button';
+import { ConnectionType, EncryptedConnection, TableInfo } from '@renderer/types/index';
+import { showErrorNotification, showSuccessNotification } from '@renderer/utils/notifications';
+import { History, HomeIcon, Plus, XIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import SchemaVisualization from './components/ERD';
 import QueryEditor from './components/QueryEditor/QueryEditor';
 import QueryHistory from './components/QueryHistory';
 // import BookmarkManager from './components/BookmarkManager';
-import ExportDialog from './components/ExportDialog';
-import { ModeToggle } from './components/theme/mode-toggle';
-import { ScrollArea } from './components/ui/scroll-area';
-import { cn } from './lib/utils';
 import ConnectionCard from './components/ConnectionCard';
-import { Card } from './components/ui/card';
+import ExportDialog from './components/ExportDialog';
 import ConnectionForm from './components/Form/ConnectionForm';
+import { ModeToggle } from './components/theme/mode-toggle';
+import { Card } from './components/ui/card';
 import { ErrorBoundary } from './components/ui/error-boundary';
 import { ErrorDisplay } from './components/ui/error-display';
-import { LoadingOverlay, InlineLoading } from './components/ui/loading';
+import { InlineLoading, LoadingOverlay } from './components/ui/loading';
+import { ScrollArea } from './components/ui/scroll-area';
+import { cn } from './lib/utils';
 
 // Connection-specific state interface
 interface ConnectionState {
@@ -433,11 +433,13 @@ const App = () => {
                 activeConnections.map((connection) => (
                   <div
                     key={connection.id}
-                    className={`flex items-center gap-2 rounded-md px-3 py-1.5 text-sm whitespace-nowrap ${
-                      activeConnectionId === connection.id
-                        ? 'bg-primary text-primary-foreground'
-                        : 'hover:bg-accent'
-                    }`}
+                    className={
+                      cn(
+                        "flex items-center gap-2 rounded-md px-3 py-1.5 text-sm whitespace-nowrap",
+                        activeConnectionId === connection.id
+                          ? 'bg-primary text-primary-foreground'
+                          : 'hover:bg-accent'
+                      )}
                   >
                     <button
                       onClick={() => setActiveConnectionId(connection.id)}
@@ -605,6 +607,9 @@ const App = () => {
                       isLoading={isLoading}
                       connectionType={activeConnection?.type!}
                       forceUpdate={forceQueryUpdate}
+                      connectionId={activeConnectionId || undefined}
+                      tables={tables}
+                      activeTable={activeTable}
                     />
 
                     <div className="flex-1 overflow-hidden">
